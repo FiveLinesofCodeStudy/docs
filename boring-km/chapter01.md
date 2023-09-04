@@ -1,0 +1,71 @@
+# 1. Refactoring Refactoring
+
+[You can also read in Notion](https://www.notion.so/1-Refactoring-Refactoring-9c026e40f2f6433eafa240fcca8d2396?pvs=4)
+
+## 내 생각/느낀점
+
+- 자동화 테스트의 중요성!
+- 이 책에서 어떤 리팩터링 기법/패턴/규칙들을 소개해 줄지 조금 기대가 된다.
+- 무의식적으로 코드를 정리하다보면 기능까지 조금 개선하면서 리팩토링을 할 때가 있는데, 옳은 방법이었는지 아닌지 확인이 필요할 것 같다. (리팩터링의 정의만 보면 기능은 일체 바꾸지 않는 것처럼 정의하고 있음)
+
+> *”이 책에서는 완전히 새로운 스킬을 배우기 때문”* 이라는 문구가 나오는데, 얼마나 대단하길래 새롭다는 말을 하는지 궁금해졌다.
+
+회사 업무에 적용한다면? (신규 프로젝트 or 새로운 기능 추가 상황)
+
+1. 탐색: 새로 개발할 기능이 구현 가능한 기술인지 검증
+2. 명세화: Jira 개인 업무 리스트에 추가
+3. 구현: 코드 작성
+4. 테스트: 테스트 코드 작성 or 직접 테스트
+5. 리팩터링: 코드 리팩터링 수행
+6. 전달: 대부분 개인 프로젝트라 전달할 일이 없긴 하지만, 여럿이서 하는 프로젝트라면 현재 PR 올릴 수단이 없으니 특정 branch로 Push하고
+   해당 Git Repository 담당자에게 Push한 branch의 리뷰를 요청한다.
+
+
+# 억지로 규칙 적용해보기
+
+## 이슈
+
+- 전에 만들었던 Flutter 이미지 Crop 패키지를 개선해야 하는 상황이 있었음
+- Flutter 3.10.x → 3.13.x 버전으로 올라가면서 이에 대응해야 할 필요도 있었음
+- Flutter의 오픈 소스 라이브러리 공개 사이트인 pub.dev에서는 업로드한 공개 라이브러리의 점수를 평가하는 게 있는데, 여기서 점수가 일부 깎여 있어 다시 채우고자 했음
+  <br/>https://github.com/boring-km/dynamic_image_crop/issues/11
+
+### 기존 리팩터링 방식
+
+- Red: https://github.com/boring-km/dynamic_image_crop/pull/10
+- Green: https://github.com/boring-km/dynamic_image_crop/pull/12
+- Refactoring: https://github.com/boring-km/dynamic_image_crop/commit/1fa211f84a7b49b37a47a0442f7dab7c369dafce
+
+### 끼워 맞춰 보기
+
+1. 탐색: 이슈 확인
+
+   [Update 0.0.9 · boring-km/dynamic_image_crop@4955089](https://github.com/boring-km/dynamic_image_crop/actions/runs/6058750212/job/16441185826?pr=12)
+
+2. 명세화: 무엇을 만들지 알게 되면 그것을 명세화하자
+
+   https://github.com/boring-km/dynamic_image_crop/issues/13
+
+3. 구현: 코드 구현
+    - (새로 개발하는 기능이 있다면 여기서…)
+4. 테스트: 코드가 2단계의 명세를 따르는지 확인하자
+
+   expected behavior: All test passed!
+
+   [Codecov](https://app.codecov.io/gh/boring-km/dynamic_image_crop)
+
+   [Update 0.0.9 · boring-km/dynamic_image_crop@bf78318](https://github.com/boring-km/dynamic_image_crop/actions/runs/6058912112/job/16441485532)
+
+5. 리팩터링: 코드를 전달하기 전에 다음 사람이 쉽게 작업할 수 있는지 확인한다.
+    - (새로 개발한 기능에 대해 리팩토링 수행…)
+    - 여기서는 bug fix: https://github.com/boring-km/dynamic_image_crop/pull/12/commits/bf78318656d70b36c79426f804a3f498214cf34d
+6. 전달: Pull Request나 특정 branch로 Push하는 방법
+
+   https://github.com/boring-km/dynamic_image_crop/pull/12
+
+> 결론: **bugfix**와 **refactoring**은 다르다.
+
+
+### 최근에 수행했던 다른 리팩터링
+
+https://github.com/boring-km/Android_Simple_Counter/commit/71b082e8128b2f06ecd3bc8b6097b16d1dc9edd7
