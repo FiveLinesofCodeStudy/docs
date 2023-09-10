@@ -1,0 +1,25 @@
+# 2. Looking under the hood of Refactoring
+
+[You can also read in Notion](https://www.notion.so/2-Looking-under-the-hood-of-Refactoring-7701be7f88ee4cc58897f5af894fb82f?pvs=4)
+
+## 느낀점
+
+- 가독성 → 너무나도 당연하게 중요하다. 하지만 잘 안지켜질 때가 은근 많다.
+- 유지보수성 → 변경이 일어나는 유지보수를 할 때 안전하게 하는 방법으로 “불변속성의 범위제한”을 제시했지만, 이것만으로는 부족하다. 여전히 여러명이 개발하는 프로젝트에서는 잘못 사용될 가능성이 있다. (불변속성의 범위제한이 100% 지켜졌는지 확인하기가 어렵기 때문)
+    - 디자인 패턴 중에 service locator 패턴이라는게 있다.
+    - 전역으로 접근하게 하는 코드 자체가 정말 필요한 지 먼저 판단해야 한다. 필요 없다면, 필요한 객체를 인수로 넘겨줄 수는 없는지 판단해보자
+
+- [클린코드 5장 내용 인용](https://boring-km.dev/2021/02/13/clean_code/chapter05/) → 가독성이 좋아지면 유지보수성도 올라간다.
+- 코드가 하는 일을 바꾸지 않고 유지보수하려면 제일 안전한 방법은 역시 테스트 코드를 작성하는 방법인 것 같다. - [https://blog.wadiz.kr/프론트엔드-개발자의-tdd-적응하기/](https://blog.wadiz.kr/%ED%94%84%EB%A1%A0%ED%8A%B8%EC%97%94%EB%93%9C-%EA%B0%9C%EB%B0%9C%EC%9E%90%EC%9D%98-tdd-%EC%A0%81%EC%9D%91%ED%95%98%EA%B8%B0/)
+- 지금 돌이켜보면, 새로운 기능을 개발할 때에는 계속 코드 작성하고 실행해보고 고쳐보고를 반복하다보니 다 작성하고 나서 리팩토링을 시도해 본 적은 상대적으로 적었던 것 같다. (반성)
+- 유연성 있는 코드를 작성하기 위해 계속해서 고민 중이다. → 그리고 이 유연성은 단순히 소스파일 하나에서 적용하기 보다는 아키텍처 레벨에서 생각해야 할 문제 같기도 하다.
+- App 개발 아키텍처에서는 Clean Architecture 라는 용어가 계속 사용되고 있는데, Web에서도 적용되는 말인지는 잘 모르겠다.
+    - Android의 공식문서에도 적혀있는 아키텍처 가이드: https://developer.android.com/topic/architecture?hl=ko
+    - 컴포지션이 나와있는 문서: https://developer.android.com/training/dependency-injection?hl=ko
+    - React Clean Architecture: https://betterprogramming.pub/clean-architecture-with-react-cc097a08b105
+
+> TDD 연습해보기: https://github.com/boring-km/Android_Simple_Counter
+
+## 기능 변경 없이 리팩토링 해보기
+
+- https://github.com/boring-km/Android_Simple_Counter/commits/master
