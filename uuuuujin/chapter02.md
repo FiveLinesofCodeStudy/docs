@@ -1,0 +1,75 @@
+## 2장 - 리팩토링 깊게 들여다보기
+
+> 좋은 코드: 가독성과 유지보수성이 좋은 코드
+
+## 📌 가독성
+
+> **의도 전달**하기 위한 코드 성질
+
+- 코드가 의도한 대로 작동 -> 코드가 무슨 일을 하는지 파악 용이
+- 방법: 코드 컨벤션 정하고 따르기, 주석 달기, 공백 사용 등
+
+<br>
+
+😡 이중부정 제발..
+
+> 책 에시에 있던 "이중 부정"은 정말 코드 이해하는데 어렵게 하는 요소 top5 안에 들지 않을까?
+
+<br>
+
+### ➕ 추가 ➕
+
+"읽기 좋은 코드가 좋은 코드다"라는 책에서 if/else를 쓸 때 **부정이 아닌 긍정을 다뤄라** 라는 말이 있다.
+
+```
+if (!url.HasQueryParameter("expand_all")) {
+  response.Render(items);
+  ...
+} else {
+  for (int i = 0; i < items.size(); i++) {
+    items[i].Expand();
+  }
+}
+```
+
+> 이중 부정 사용하는 것 뿐만 아니라 if문에 부정으로 쓰는 것도 자제해야 함을 다시 한번 상기하기...
+
+<br>
+
+## 📌 유지보수성
+
+> 새 코드를 넣을 때 얼마나 많은 후보 위치(context)를 조사해야 하는지를 나타낸 표현
+
+- 현재 코드가 무슨일 하는지 파악
+- 새로운 목표 수용하기 위해 코드를 안전하고 빠르며 쉽게 수정할 수 있는 방법 무엇인지 찾기
+
+<br>
+
+### 취약한 시스템
+
+- 한군데 수정했는데 관련없어 보이는 곳에서 문제 생김
+- 전역 상태 남용이 주요 원인
+
+#### 불변속성(invariant)
+
+- 코드에서 상태(조건)를 명시적으로 확인하지 않는 속성
+- 가정설정문(assertion)으로만 확인하는 속성
+- **변수를 명시적으로 체크**(🧐 어떻게??)해서 불변속성을 제거함으로써 유지보수성 향상
+
+<br>
+
+값을 입력하면 리팩터링 전과 후가 동일한 결과를 얻어야 한다.
+
+- 리팩터링 중 코드가 느려져도 신경쓰지 말기
+- 가치: 성능 <<< 가독성 & 유지보수성
+- 성능이 중요하다면 전문가의 도움을 받아 리팩터링과 다른 단계에서 처리
+
+<br>
+
+### 상속 vs 컴포지션
+
+[상속vs컴포지션 코드](https://www.typescriptlang.org/ko/play?#code/JYOwLgpgTgZghgYwgAgELCgE2QbwFDKHIAWcAzqhHANYAUAlAFzIBGA9mwDZUgDcBRBHBAAxTgE8Gzdlx78AvnjwJO5MsgDCbALba2IdFmTBtAB27aI4dYez4iJcpRoNcUCGACuUEMjBRPCF5FByFRCVccdy8fPwCgkMFhAGUAdxNI6O9feE4yBLxFPAB6YuRAURnkQAgxwB2hkrKVNWQABSsAc09QYzMLKzAbDDt6h2RTKGAANzhIVkHkAF5kEAhUzR09A0GGflKR0goqOno3D2zZrAA6fecj4OHQ4TFJY6jT2Nz8u92i3cAXccAYmuQgD3OwApTYAHGuQgBFRwAzTYAAGoA-PDkL9ABntgB9R5CABdHADftgAyGkGAB2blKoyOpWiAOl0TOYIJZrGtdPpbLgBIQxpNpigWHNFstVlpGZssNtWY4Di4XllYtzLtdDttEoQwk9Mm8cnA8gUio1SS12p0QAAmZAQAAekBAmHUAo2zPsSXCzxOMXVmru8iAA)
+
+- 상속 대신 컴포지션을 사용하자
+- 컴포지션을 사용하면 코드를 더 깔끔하게 결합가능하고 재사용할 수 있음 -> 유연성 높아짐
+- 기존 기능에 영향 주지 않고 기능을 추가/변경 할 수 있음
